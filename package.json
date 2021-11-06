@@ -1,0 +1,59 @@
+{
+  "name": "huel-react-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "format": "prettier \"src/**/*.{js,html}\" --write",
+    "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
+    "test": "react-scripts test",
+    "coverage": "react-scripts test --coverage --watchAll"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.2",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^1.19.1"
+  },
+  "dependencies": {
+    "@reach/router": "^1.3.3",
+    "@testing-library/react": "^12.1.2",
+    "axios": "^0.24.0",
+    "jest": "^27.3.1",
+    "jest-cli": "^27.3.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-scripts": "^4.0.3"
+  },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions"
+  ],
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!<rootDir>/src/index.js",
+      "!<rootDir>/src/reportWebVitals.js",
+      "!<rootDir>/node_modules/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "lines": 90,
+        "statements": 90
+      }
+    }
+  }
+}
