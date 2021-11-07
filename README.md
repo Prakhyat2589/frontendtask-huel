@@ -13,3 +13,15 @@ npm install
 ```
 npm run dev
 ```
+
+### For test
+
+```
+npm run test
+```
+
+### For coverage
+
+```
+npm run coverage
+```
