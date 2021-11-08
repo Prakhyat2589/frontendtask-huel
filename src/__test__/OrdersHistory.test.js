@@ -56,7 +56,7 @@ describe("OrdersHistory component render", () => {
     expect(component).toMatchSnapshot();
   });
 
-  it("should show default image", async () => {
+  it("should show 'noimage' if image is not loaded from api", async () => {
     const onError = jest.fn();
     axios.get.mockResolvedValueOnce({
       data: {
