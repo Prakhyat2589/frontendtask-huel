@@ -4,6 +4,7 @@ import noimage from "./assests/images/noimage.png";
 
 const OrdersHistory = () => {
   const [orderdata, setOrderData] = useState();
+  const [noImageFound, setNoImageFound] = useState(false);
 
   const fetchOrdersHistory = async () => {
     try {
@@ -17,14 +18,9 @@ const OrdersHistory = () => {
     }
   };
 
-  //   const checkImage = async image_url => {
-  //     var http = new XMLHttpRequest();
-
-  //     http.open('HEAD', image_url, false);
-  //     http.send();
-
-  //     return http.status != 404;
-  //   };
+  const onError = (e) => {
+    e.target.src = noimage;
+  };
 
   const priceFormatter = (price, currencyCode) => {
     return new Intl.NumberFormat("en-US", {
@@ -35,7 +31,6 @@ const OrdersHistory = () => {
 
   useEffect(() => {
     fetchOrdersHistory();
-    // console.log(checkImage);
   }, []);
 
   return (
@@ -47,7 +42,12 @@ const OrdersHistory = () => {
               <div className="column is-6" key={index} data-testid="orders">
                 <div className="media">
                   <div className="media-left">
-                    <img alt={item.title} className="image" src={item.image} />
+                    <img
+                      alt={item.title}
+                      className="image"
+                      src={item.image}
+                      onError={(e) => onError(e)}
+                    />
                   </div>
                   <div className="media-content">
                     <div>
