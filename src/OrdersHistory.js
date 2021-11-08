@@ -4,7 +4,6 @@ import noimage from "./assests/images/noimage.png";
 
 const OrdersHistory = () => {
   const [orderdata, setOrderData] = useState();
-  const [noImageFound, setNoImageFound] = useState(false);
 
   const fetchOrdersHistory = async () => {
     try {
