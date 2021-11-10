@@ -11,7 +11,7 @@ const OrdersHistory = () => {
         "https://frontendtest.huel.io/api/line-items"
       );
       const response = fetchURL.data.line_items;
-
+      console.log(response);
       bundleOrders(response);
     } catch (e) {
       console.log("Network Error");
@@ -47,7 +47,7 @@ const OrdersHistory = () => {
         ).toString();
       } else {
         if (typeof item.name === "string") {
-          if (item.name.indexOf("Huel Powder") > -1) {
+          if (item.sku === "POW-BE-11") {
             item.name = [
               item.name
                 .split(" ")
