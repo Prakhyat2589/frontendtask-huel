@@ -20,20 +20,24 @@ describe("OrdersHistory component render", () => {
       data: {
         line_items: [
           {
+            name: "Huel Powder",
             title: "Huel Shaker Bottle (Clear)",
             price_set: {
               shop_money: {
                 currency_code: "USD",
               },
             },
+            quantity: 1,
           },
           {
+            name: "Test",
             title: "Free T-Shirt & Shaker",
             price_set: {
               shop_money: {
                 currency_code: "USD",
               },
             },
+            quantity: 1,
           },
         ],
       },
@@ -44,7 +48,7 @@ describe("OrdersHistory component render", () => {
     await waitFor(() =>
       getAllByTestId("orders").map((orders) => orders.textContent)
     );
-    expect(getByText("Huel Shaker Bottle (Clear)"));
+    expect(getByText("Huel Shaker"));
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(url);
   });
@@ -62,6 +66,7 @@ describe("OrdersHistory component render", () => {
       data: {
         line_items: [
           {
+            name: "Test",
             title: "Huel Shaker Bottle (Clear)",
             image: noimage,
             price_set: {
@@ -69,8 +74,10 @@ describe("OrdersHistory component render", () => {
                 currency_code: "USD",
               },
             },
+            quantity: 1,
           },
           {
+            name: "Test",
             title: "Free T-Shirt & Shaker",
             image: noimage,
             price_set: {
@@ -78,6 +85,7 @@ describe("OrdersHistory component render", () => {
                 currency_code: "USD",
               },
             },
+            quantity: 1,
           },
         ],
       },

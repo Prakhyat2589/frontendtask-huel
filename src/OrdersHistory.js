@@ -3,7 +3,7 @@ import axios from "axios";
 import noimage from "./assests/images/noimage.png";
 
 const OrdersHistory = () => {
-  const [orderdata, setOrderData] = useState();
+  const [filterdata, setFilterData] = useState();
 
   const fetchOrdersHistory = async () => {
     try {
@@ -11,14 +11,69 @@ const OrdersHistory = () => {
         "https://frontendtest.huel.io/api/line-items"
       );
       const response = fetchURL.data.line_items;
-      setOrderData(response);
+
+      bundleOrders(response);
     } catch (e) {
       console.log("Network Error");
     }
   };
 
+  const bundleOrders = (orderList) => {
+    let finalList = [];
+    orderList.forEach((item) => {
+      let filterList = finalList.filter((list) => {
+        return list.variant_title === item.variant_title;
+      });
+
+      if (filterList.length) {
+        let existingIndex = finalList.indexOf(filterList[0]);
+        //bundling name
+        finalList[existingIndex].name = finalList[existingIndex].name.concat(
+          item.name
+            .split(" ")
+            .slice(-3, -2)
+            .join(" ")
+        );
+
+        //one title
+        finalList[existingIndex].title = finalList[existingIndex].title
+          .split(" ")
+          .slice(0, 2)
+          .join(" ");
+
+        //adding price
+        finalList[existingIndex].price = (
+          parseInt(finalList[existingIndex].price) + parseInt(item.price)
+        ).toString();
+      } else {
+        if (typeof item.name === "string") {
+          if (item.name.indexOf("Huel Powder") > -1) {
+            item.name = [
+              item.name
+                .split(" ")
+                .slice(-3, -2)
+                .join(" "),
+            ];
+          } else {
+            item.name = [item.name];
+          }
+        }
+        finalList.push(item);
+      }
+    });
+    setFilterData(finalList);
+  };
+
   const onError = (e) => {
     e.target.src = noimage;
+  };
+
+  const productVarient = (productQuantity, productName) => {
+    return productName
+      .map((productName) => {
+        return `${productQuantity}x ${productName}`;
+      })
+      .join(", ");
   };
 
   const priceFormatter = (price, currencyCode) => {
@@ -35,8 +90,8 @@ const OrdersHistory = () => {
   return (
     <div className="order-information-expanded">
       <div className="product-list-boxes columns is-multiline">
-        {orderdata &&
-          orderdata.map((item, index) => {
+        {filterdata &&
+          filterdata.map((item, index) => {
             return (
               <div className="column is-6" key={index} data-testid="orders">
                 <div className="media">
@@ -52,7 +107,7 @@ const OrdersHistory = () => {
                     <div>
                       <p className="product-title">{item.title}</p>
                       <p className="product-variants">
-                        {item.quantity}x {item.name}
+                        {productVarient(item.quantity, item.name)}
                       </p>
                     </div>
                   </div>
